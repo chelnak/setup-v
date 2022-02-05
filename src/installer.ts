@@ -43,7 +43,7 @@ export async function setup(): Promise<void> {
 
 async function resolveLatestRelease(token: string): Promise<string> {
   const o = github.getOctokit(token)
-  const release = await o.repos.getLatestRelease({
+  const release = await o.rest.repos.getLatestRelease({
     owner: 'vlang',
     repo: 'v'
   })
