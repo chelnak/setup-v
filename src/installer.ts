@@ -23,7 +23,7 @@ export async function setup(): Promise<void> {
     const downloadPath = await tc.downloadTool(url)
 
     core.info(`Extracting v ${requestedVersion}`)
-    const archivePath = await extractArchive(downloadPath)
+    const archivePath = await tc.extractZip(downloadPath)
     const binPath = path.join(archivePath, 'v')
 
     core.info('Adding v to the cache..')
@@ -81,17 +81,4 @@ async function getVersion(binPath: string): Promise<string> {
 
   core.warning('Unable to get version from v executable.')
   return '0.0.0'
-}
-
-export async function extractArchive(archivePath: string): Promise<string> {
-  const platform = os.platform()
-  let extPath: string
-
-  if (platform === 'win32') {
-    extPath = await tc.extractZip(archivePath)
-  } else {
-    extPath = await tc.extractTar(archivePath)
-  }
-
-  return extPath
 }
