@@ -36,7 +36,7 @@ jobs:
         uses: ./
         with:
           version: 'latest'
-          token: ${{ github.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish
         run: v version

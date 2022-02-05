@@ -28,7 +28,7 @@ jobs:
       - uses: chelnak/setup-v@v1
         with:
           version: 0.2.4
-          token: ${{ github.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Contributing
