@@ -9,6 +9,8 @@ This action sets up a [vlang](https://vlang.io) environment for use in GitHub Ac
 | version | false | The version of vlang to download and set up. | `latest` |
 | token | false | A token with at least repo scope. | `{{ github.token }}` |
 
+> Note: You should always specify a version number for the `version` input. Currently the action will resolve the latest release from GitHub. At the moment these are the weekly releases and they could be unstable.
+
 ## Usage
 
 ``` yaml
@@ -25,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: chelnak/setup-v@v1
+      - uses: chelnak/setup-v@v0
         with:
           version: 0.2.4
           token: ${{ secrets.GITHUB_TOKEN }}
