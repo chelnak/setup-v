@@ -7,7 +7,7 @@ This action sets up a [vlang](https://vlang.io) environment for use in GitHub Ac
 | name | required | description | default |
 |------|----------|-------------|---------|
 | version | false | The version of vlang to download and set up. | `latest` |
-| token | false | A token with at least repo scope. | `{{ github.token }}` |
+| token | true | A token with at least repo scope. | `N/A` |
 
 > Note: You should always specify a version number for the `version` input. Currently the action will resolve the latest release from GitHub. At the moment these are the weekly releases and they could be unstable.
 

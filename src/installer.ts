@@ -7,7 +7,7 @@ import {exec} from 'child_process'
 import os from 'os'
 
 export async function setup(): Promise<void> {
-  const token = core.getInput('token', {required: false})
+  const token = core.getInput('token', {required: true})
   let requestedVersion = core.getInput('version', {required: false})
 
   if (requestedVersion === 'latest') {

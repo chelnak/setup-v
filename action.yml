@@ -5,7 +5,7 @@ inputs:
   version:
     description: 'The version of vlang environment to install.'
     default: 'latest'
-    required: true
+    required: false
   token:
     description: 'The GitHub token to use for authentication.'
     required: true
