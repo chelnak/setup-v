@@ -58,7 +58,7 @@ function getArchiveForPlatform(): string {
     case 'win32':
       return 'v_windows.zip'
     case 'linux':
-      return 'linux.zip'
+      return 'v_linux.zip'
     default:
       throw new Error(`Unsupported platform: ${os.platform()}`)
   }
