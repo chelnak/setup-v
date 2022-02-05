@@ -38,7 +38,7 @@ jobs:
           version: 'latest'
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish
+      - name: Test if the executable is available
         run: v version
 
       - name: Create Release
