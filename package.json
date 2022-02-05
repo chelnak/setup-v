@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "An action that sets up a vlang environment",
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "npx ncc build ./src/main.ts",
     "test": "jest",
