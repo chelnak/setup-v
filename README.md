@@ -25,14 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}    
-
       - uses: chelnak/setup-v@v1
         with:
           version: 0.2.4
-          token: {{ github.token }}
+          token: ${{ github.token }}
 ```
 
 ## Contributing
