@@ -7,9 +7,8 @@ inputs:
     default: 'latest'
     required: true
   token:
-    description: 'The GitHub token to use for authentication. Defaults to ${{ github.token }}.'
-    default: ${{ github.token }}
-    required: false
+    description: 'The GitHub token to use for authentication.'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
