@@ -1,14 +1,19 @@
 import * as core from '@actions/core'
+import * as cp from 'child_process'
 import * as github from '@actions/github'
 import * as path from 'path'
 import * as tc from '@actions/tool-cache'
 import * as util from 'util'
-import {exec} from 'child_process'
 import os from 'os'
 
+const REPO_OWNER = 'vlang'
+const REPO_NAME = 'v'
+
+export const execer = util.promisify(cp.exec)
+
 export async function setup(): Promise<void> {
-  const token = core.getInput('token', {required: true})
-  let requestedVersion = core.getInput('version', {required: false})
+  const token = core.getInput('token', { required: true })
+  let requestedVersion = core.getInput('version', { required: false })
 
   if (requestedVersion === 'latest') {
     core.info('Resolving latest release...')
@@ -16,7 +21,7 @@ export async function setup(): Promise<void> {
   }
 
   const archive = getArchiveForPlatform()
-  const url = `https://github.com/vlang/v/releases/download/${requestedVersion}/${archive}`
+  const url = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${requestedVersion}/${archive}`
 
   try {
     core.info(`Downloading v ${requestedVersion}`)
@@ -41,17 +46,17 @@ export async function setup(): Promise<void> {
   }
 }
 
-async function resolveLatestRelease(token: string): Promise<string> {
+export async function resolveLatestRelease(token: string): Promise<string> {
   const o = github.getOctokit(token)
   const release = await o.rest.repos.getLatestRelease({
-    owner: 'vlang',
-    repo: 'v'
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
   })
 
   return release.data.tag_name
 }
 
-function getArchiveForPlatform(): string {
+export function getArchiveForPlatform(): string {
   switch (os.platform()) {
     case 'darwin':
       return 'v_macos.zip'
@@ -64,12 +69,10 @@ function getArchiveForPlatform(): string {
   }
 }
 
-async function getVersion(binPath: string): Promise<string> {
-  const execer = util.promisify(exec)
-
+export async function getVersion(binPath: string): Promise<string> {
   const pathToBin = path.join(binPath, 'v')
 
-  const {stdout, stderr} = await execer(`${pathToBin} version`)
+  const { stdout, stderr } = await execer(`${pathToBin} version`)
 
   if (stderr !== '') {
     throw new Error(`Unable to get version from ${pathToBin}`)
