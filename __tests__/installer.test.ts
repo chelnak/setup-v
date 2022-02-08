@@ -90,9 +90,10 @@ describe('installer', () => {
       stdout: '',
       stderr: 'oh noes',
     }
+    const pathToBin = path.join('fake_path', 'v')
     execSpy.mockImplementation(() => Promise.resolve(o))
     await expect(i.getVersion('fake_path')).rejects.toThrow(
-      Error('Unable to get version from fake_path/v')
+      Error(`Unable to get version from ${pathToBin}`)
     )
   })
 
