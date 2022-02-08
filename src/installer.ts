@@ -20,7 +20,8 @@ export async function setup(): Promise<void> {
     requestedVersion = await resolveLatestRelease(token)
   }
 
-  const archive = getArchiveForPlatform()
+  const platform = normalizePlatform()
+  const archive = `v_${platform}.zip`
   const url = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${requestedVersion}/${archive}`
 
   try {
@@ -56,17 +57,14 @@ export async function resolveLatestRelease(token: string): Promise<string> {
   return release.data.tag_name
 }
 
-export function getArchiveForPlatform(): string {
-  switch (os.platform()) {
-    case 'darwin':
-      return 'v_macos.zip'
-    case 'win32':
-      return 'v_windows.zip'
-    case 'linux':
-      return 'v_linux.zip'
-    default:
-      throw new Error(`Unsupported platform: ${os.platform()}`)
+export function normalizePlatform(): string {
+  const platform = os.platform()
+  const platformMap: Record<string, string> = {
+    darwin: 'macos',
+    win32: 'windows',
   }
+
+  return platformMap[platform.toString()] || platform
 }
 
 export async function getVersion(binPath: string): Promise<string> {

@@ -54,27 +54,21 @@ describe('installer', () => {
     console.log('::stoptoken::') // Re-enable executing of runner commands when running tests in actions
   }, 100000)
 
-  test('getArchiveForPlatform returns correct extension for win32', () => {
+  test('normalizePlatform returns correct result for win32', () => {
     os['platform'] = 'win32'
-    expect(i.getArchiveForPlatform()).toBe('v_windows.zip')
+    expect(i.normalizePlatform()).toBe('windows')
   })
 
-  test('getArchiveForPlatform returns correct extension for darwin', () => {
+  test('normalizePlatform returns correct result for darwin', () => {
     os['platform'] = 'darwin'
-    expect(i.getArchiveForPlatform()).toBe('v_macos.zip')
+    expect(i.normalizePlatform()).toBe('macos')
   })
 
-  test('getArchiveForPlatform returns correct extension for linux', () => {
+  test('normalizePlatform returns correct result for linux', () => {
     os['platform'] = 'linux'
-    expect(i.getArchiveForPlatform()).toBe('v_linux.zip')
+    expect(i.normalizePlatform()).toBe('linux')
   })
 
-  test('getArchiveForPlatform handles unknown platform', () => {
-    os['platform'] = 'fake'
-    expect(() => {
-      i.getArchiveForPlatform()
-    }).toThrow('Unsupported platform: fake')
-  })
 
   test('getVersion returns correct version string', async () => {
     const o = {
